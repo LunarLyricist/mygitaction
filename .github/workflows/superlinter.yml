@@ -1,17 +1,25 @@
-name: Super-Linter
+name: Build and run .NET Console Application
 
 on: push
 
 jobs:
-  super-lint:
-    name: Lint code base
+  build and run:
+    name: Build and Run .NET Console Application
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0'
+        
+      - name: Restore dependencies
+        run: dotnet restore MyGitActionConsoleDemo.csproj
+      
+      - name: build the project
+        run: dotnet build MyGitActionConsoleDemo.csproj --configuration Release
 
-      - name: Run Super-Linter
-        uses: github/super-linter@v4
-        env:
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run the application
+        run: dotnet run --project MyGitActionConsoleDemo.csproj
