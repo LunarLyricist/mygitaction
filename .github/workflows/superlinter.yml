@@ -21,5 +21,13 @@ jobs:
       - name: build the project
         run: dotnet build MyGitActionConsoleDemo/MyGitActionConsoleDemo.csproj --configuration Release
 
+      #- name: Run the application
+      #  run: dotnet run --project MyGitActionConsoleDemo/MyGitActionConsoleDemo.csproj
+
+      - name: Copy output to local folder
+        run:  |
+          mkdir -p output_directory
+          cp MyGitActionConsoleDemo/bin/Release/net7.0/MyGitActionConsoleDemo.exe output_directory/
+        
       - name: Run the application
         run: dotnet run --project MyGitActionConsoleDemo/MyGitActionConsoleDemo.csproj
