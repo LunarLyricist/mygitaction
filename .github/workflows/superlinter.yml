@@ -16,10 +16,10 @@ jobs:
           dotnet-version: '8.0'
         
       - name: Restore dependencies
-        run: dotnet restore MyGitActionConsoleDemo.csproj
+        run: dotnet restore MyGitActionConsoleDemo/MyGitActionConsoleDemo.csproj
       
       - name: build the project
-        run: dotnet build MyGitActionConsoleDemo.csproj --configuration Release
+        run: dotnet build MyGitActionConsoleDemo/MyGitActionConsoleDemo.csproj --configuration Release
 
       - name: Run the application
-        run: dotnet run --project MyGitActionConsoleDemo.csproj
+        run: dotnet run --project MyGitActionConsoleDemo/MyGitActionConsoleDemo.csproj
