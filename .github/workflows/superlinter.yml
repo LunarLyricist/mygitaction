@@ -25,10 +25,13 @@ jobs:
       - name: List build output
         run: ls -R MyGitActionConsoleDemo/bin/
 
-      - name: Copy .exe to local directory
+      - name: Copy .dll to local directory
         run: |
           mkdir -p output_directory
-          cp MyGitActionConsoleDemo/bin/Release/net7.0/MyGitActionConsoleDemo.exe output_directory/ || cp MyGitActionConsoleDemo/bin/Debug/net7.0/MyGitActionConsoleDemo.exe output_directory/
+          cp MyGitActionConsoleDemo/bin/Release/net8.0/MyGitActionConsoleDemo.dll output_directory/
+
+      - name: Run the application
+        run: dotnet MyGitActionConsoleDemo/bin/Release/net8.0/MyGitActionConsoleDemo.dll
 
 
 # name: Build and run .NET Console Application
