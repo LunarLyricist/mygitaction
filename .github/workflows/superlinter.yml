@@ -1,4 +1,4 @@
-name: Build and run .NET Console Application
+name: Build-and-Run-.NET-Console-App
 
 on: push
 
@@ -6,28 +6,61 @@ jobs:
   build_and_run:
     name: Build and Run .NET Console Application
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      
+
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.0'
-        
+          dotnet-version: '8.0'  # Use the .NET version you're targeting
+
       - name: Restore dependencies
         run: dotnet restore MyGitActionConsoleDemo/MyGitActionConsoleDemo.csproj
-      
-      - name: build the project
+
+      - name: Build the project
         run: dotnet build MyGitActionConsoleDemo/MyGitActionConsoleDemo.csproj --configuration Release
 
-      #- name: Run the application
-      #  run: dotnet run --project MyGitActionConsoleDemo/MyGitActionConsoleDemo.csproj
+      - name: List build output
+        run: ls -R MyGitActionConsoleDemo/bin/
 
-      - name: Copy output to local folder
-        run:  |
+      - name: Copy .exe to local directory
+        run: |
           mkdir -p output_directory
-          cp MyGitActionConsoleDemo/bin/Release/net7.0/MyGitActionConsoleDemo.exe output_directory/
+          cp MyGitActionConsoleDemo/bin/Release/net7.0/MyGitActionConsoleDemo.exe output_directory/ || cp MyGitActionConsoleDemo/bin/Debug/net7.0/MyGitActionConsoleDemo.exe output_directory/
+
+
+# name: Build and run .NET Console Application
+
+# on: push
+
+# jobs:
+#   build_and_run:
+#     name: Build and Run .NET Console Application
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+      
+#       - name: Set up .NET Core
+#         uses: actions/setup-dotnet@v3
+#         with:
+#           dotnet-version: '8.0'
         
-      - name: Run the application
-        run: dotnet run --project MyGitActionConsoleDemo/MyGitActionConsoleDemo.csproj
+#       - name: Restore dependencies
+#         run: dotnet restore MyGitActionConsoleDemo/MyGitActionConsoleDemo.csproj
+      
+#       - name: build the project
+#         run: dotnet build MyGitActionConsoleDemo/MyGitActionConsoleDemo.csproj --configuration Release
+
+#       #- name: Run the application
+#       #  run: dotnet run --project MyGitActionConsoleDemo/MyGitActionConsoleDemo.csproj
+
+#       - name: Copy output to local folder
+#         run:  |
+#           mkdir -p output_directory
+#           cp MyGitActionConsoleDemo/bin/Release/net7.0/MyGitActionConsoleDemo.exe output_directory/
+        
+#       - name: Run the application
+#         run: dotnet run --project MyGitActionConsoleDemo/MyGitActionConsoleDemo.csproj
